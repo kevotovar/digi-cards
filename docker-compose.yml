@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: digicards
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://admin:password@db:5432/postgres?schema=public
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+      - ./.next:/usr/src/app/.next
+    networks:
+      - digicards
+    command: npm run dev
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    container_name: digicards_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=admin
+    networks:
+      - digicards
+    ports:
+      - "5432:5432"
+
+networks:
+  digicards:
+    driver: bridge
+
+volumes:
+  node_modules:
