@@ -33,6 +33,7 @@ services:
       - digicards
     ports:
       - "5432:5432"
+      - "5555:5555"
 
 networks:
   digicards:
