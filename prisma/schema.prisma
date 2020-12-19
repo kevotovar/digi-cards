@@ -25,3 +25,23 @@ model Post {
   title     String
   author    User?   @relation(fields: [authorId], references: [id])
 }
+
+model DigimonCards {
+  id               Int     @id @default(autoincrement())
+  name             String
+  number           String
+  rarity           String
+  cardType         String
+  cardImage        String
+  form             String?
+  attribute        String?
+  digivoluveEffect String?
+  securityEffect   String?
+  digivolve1Cost   String?
+  digivolve2Cost   String?
+  dp               String?
+  effect           String?
+  level            String?
+  playCost         String?
+  digimonType      String?
+}
